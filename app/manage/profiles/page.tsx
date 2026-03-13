@@ -25,7 +25,7 @@ export default async function ManageProfiles() {
                         &larr; Back to Dashboard
                     </Link>
                     <h1 className="text-3xl font-bold text-blue-400">Manage Profiles</h1>
-                    <p className="text-gray-400 mt-2">View and audit registered user accounts.</p>
+                    <p className="text-gray-400 mt-2">View and audit registered user accounts. This data is Read-Only.</p>
                 </div>
 
                 {/* Data Table */}
@@ -35,7 +35,6 @@ export default async function ManageProfiles() {
                         <tr className="bg-gray-950 border-b border-gray-800 text-gray-400 text-sm">
                             <th className="p-4 font-semibold">User ID</th>
                             <th className="p-4 font-semibold">Superadmin Status</th>
-                            <th className="p-4 font-semibold text-right">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -60,19 +59,12 @@ export default async function ManageProfiles() {
                                     )}
                                 </td>
 
-                                {/* Actions Placeholder (Prep for Week 7) */}
-                                <td className="p-4 text-right">
-                                    <button className="text-sm text-gray-500 hover:text-white underline transition-colors cursor-not-allowed" title="Update/Delete coming in Week 7!">
-                                        Edit
-                                    </button>
-                                </td>
-
                             </tr>
                         ))}
 
                         {(!profiles || profiles.length === 0) && (
                             <tr>
-                                <td colSpan={3} className="p-8 text-center text-gray-500">
+                                <td colSpan={2} className="p-8 text-center text-gray-500">
                                     No profiles found.
                                 </td>
                             </tr>

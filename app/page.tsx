@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
 
 export default async function AdminDashboard() {
   const supabase = await createClient();
@@ -48,6 +49,60 @@ export default async function AdminDashboard() {
               <p className="text-sm text-gray-400 mt-2">Review AI-generated captions</p>
             </a>
           </div>
+
+          {/* --- SYSTEM CONFIGURATION (Week 7) --- */}
+                  <h2 className="text-xl font-semibold mb-6 mt-12 text-gray-300">System Configuration</h2>
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+                     <Link href="/manage/humor_flavors" className="p-4 bg-gray-900 border border-gray-800 rounded-lg hover:bg-gray-800 hover:border-indigo-500 transition-all group">
+                       <h3 className="text-md font-bold text-gray-300 group-hover:text-indigo-500">Humor Flavors</h3>
+                     </Link>
+
+                     <Link href="/manage/humor_flavor_steps" className="p-4 bg-gray-900 border border-gray-800 rounded-lg hover:bg-gray-800 hover:border-violet-500 transition-all group">
+                       <h3 className="text-md font-bold text-gray-300 group-hover:text-violet-500">Flavor Steps</h3>
+                     </Link>
+
+                     <Link href="/manage/humor_flavor_mix" className="p-4 bg-gray-900 border border-gray-800 rounded-lg hover:bg-gray-800 hover:border-emerald-500 transition-all group">
+                       <h3 className="text-md font-bold text-gray-300 group-hover:text-emerald-500">Humor Mix</h3>
+                     </Link>
+
+                     <Link href="/manage/terms" className="p-4 bg-gray-900 border border-gray-800 rounded-lg hover:bg-gray-800 hover:border-yellow-500 transition-all group">
+                       <h3 className="text-md font-bold text-gray-300 group-hover:text-yellow-500">Terms</h3>
+                     </Link>
+
+                     <Link href="/manage/caption_requests" className="p-4 bg-gray-900 border border-gray-800 rounded-lg hover:bg-gray-800 hover:border-amber-500 transition-all group">
+                       <h3 className="text-md font-bold text-gray-300 group-hover:text-amber-500">Caption Requests</h3>
+                     </Link>
+
+                     <Link href="/manage/caption_examples" className="p-4 bg-gray-900 border border-gray-800 rounded-lg hover:bg-gray-800 hover:border-pink-500 transition-all group">
+                       <h3 className="text-md font-bold text-gray-300 group-hover:text-pink-500">Caption Examples</h3>
+                     </Link>
+
+                     <Link href="/manage/llm_models" className="p-4 bg-gray-900 border border-gray-800 rounded-lg hover:bg-gray-800 hover:border-teal-400 transition-all group">
+                       <h3 className="text-md font-bold text-gray-300 group-hover:text-teal-400">LLM Models</h3>
+                     </Link>
+
+                     <Link href="/manage/llm_providers" className="p-4 bg-gray-900 border border-gray-800 rounded-lg hover:bg-gray-800 hover:border-blue-500 transition-all group">
+                       <h3 className="text-md font-bold text-gray-300 group-hover:text-blue-500">LLM Providers</h3>
+                     </Link>
+
+                     <Link href="/manage/llm_prompt_chains" className="p-4 bg-gray-900 border border-gray-800 rounded-lg hover:bg-gray-800 hover:border-sky-400 transition-all group">
+                       <h3 className="text-md font-bold text-gray-300 group-hover:text-sky-400">Prompt Chains</h3>
+                     </Link>
+
+                     <Link href="/manage/llm_model_responses" className="p-4 bg-gray-900 border border-gray-800 rounded-lg hover:bg-gray-800 hover:border-rose-500 transition-all group">
+                       <h3 className="text-md font-bold text-gray-300 group-hover:text-rose-500">Model Responses</h3>
+                     </Link>
+
+                     <Link href="/manage/allowed_signup_domains" className="p-4 bg-gray-900 border border-gray-800 rounded-lg hover:bg-gray-800 hover:border-cyan-400 transition-all group">
+                       <h3 className="text-md font-bold text-gray-300 group-hover:text-cyan-400">Allowed Domains</h3>
+                     </Link>
+
+                     <Link href="/manage/whitelist_email_addresses" className="p-4 bg-gray-900 border border-gray-800 rounded-lg hover:bg-gray-800 hover:border-orange-500 transition-all group">
+                        <h3 className="text-md font-bold text-gray-300 group-hover:text-orange-500">Whitelisted Emails</h3>
+                     </Link>
+
+                  </div>
 
         </div>
       </div>

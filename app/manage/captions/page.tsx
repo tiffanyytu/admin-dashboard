@@ -23,7 +23,7 @@ export default async function ManageCaptions() {
                         &larr; Back to Dashboard
                     </Link>
                     <h1 className="text-3xl font-bold text-purple-400">Manage Captions</h1>
-                    <p className="text-gray-400 mt-2">Review AI-generated captions and their associated images.</p>
+                    <p className="text-gray-400 mt-2">Review AI-generated captions and their associated images. This data is Read-Only.</p>
                 </div>
 
                 {/* Data Table */}
@@ -34,7 +34,6 @@ export default async function ManageCaptions() {
                             <th className="p-4 font-semibold w-24">Context</th>
                             <th className="p-4 font-semibold">Caption Text</th>
                             <th className="p-4 font-semibold">Caption ID</th>
-                            <th className="p-4 font-semibold text-right">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -45,6 +44,7 @@ export default async function ManageCaptions() {
                                 <td className="p-4">
                                     {caption.images?.url ? (
                                         <div className="w-16 h-16 rounded bg-black/50 overflow-hidden border border-gray-700">
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
                                             <img
                                                 src={caption.images.url}
                                                 alt="Context for caption"
@@ -68,19 +68,12 @@ export default async function ManageCaptions() {
                                     {caption.id}
                                 </td>
 
-                                {/* Actions Placeholder (Prep for Week 7) */}
-                                <td className="p-4 text-right">
-                                    <button className="text-sm text-gray-500 hover:text-white underline transition-colors cursor-not-allowed" title="Update/Delete coming in Week 7!">
-                                        Edit
-                                    </button>
-                                </td>
-
                             </tr>
                         ))}
 
                         {(!captions || captions.length === 0) && (
                             <tr>
-                                <td colSpan={4} className="p-8 text-center text-gray-500">
+                                <td colSpan={3} className="p-8 text-center text-gray-500">
                                     No captions found in the database.
                                 </td>
                             </tr>
