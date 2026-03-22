@@ -8,6 +8,9 @@ import { redirect } from "next/navigation";
 export async function createCaptionExample(formData: FormData) {
   const supabase = await createClient();
 
+  // --- NEW: Fetch the user so we know who is creating the row! ---
+  const { data: { user } } = await supabase.auth.getUser();
+
   const image_description = formData.get("image_description") as string;
   const caption = formData.get("caption") as string;
   const explanation = formData.get("explanation") as string;
@@ -17,7 +20,12 @@ export async function createCaptionExample(formData: FormData) {
     image_description,
     caption,
     explanation,
-    priority
+    priority,
+
+    // --- NEW REQUIRED FIELDS ---
+    created_by_user_id: user?.id,
+    modified_by_user_id: user?.id
+    // ---------------------------
   });
 
   if (error) console.error("Error creating caption example:", error.message);
@@ -29,6 +37,9 @@ export async function createCaptionExample(formData: FormData) {
 // --- UPDATE ---
 export async function updateCaptionExample(formData: FormData) {
   const supabase = await createClient();
+
+  // --- NEW: Fetch the user so we know who is modifying the row! ---
+  const { data: { user } } = await supabase.auth.getUser();
 
   const id = formData.get("id") as string;
   const image_description = formData.get("image_description") as string;
@@ -42,7 +53,11 @@ export async function updateCaptionExample(formData: FormData) {
       image_description,
       caption,
       explanation,
-      priority
+      priority,
+
+      // --- NEW REQUIRED FIELD ---
+      modified_by_user_id: user?.id
+      // --------------------------
     })
     .eq("id", id);
 

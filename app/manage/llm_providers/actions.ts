@@ -7,9 +7,20 @@ import { redirect } from "next/navigation";
 // --- CREATE ---
 export async function createLlmProvider(formData: FormData) {
   const supabase = await createClient();
+
+  // --- NEW: Fetch the user so we know who is creating the row! ---
+  const { data: { user } } = await supabase.auth.getUser();
+
   const name = formData.get("name") as string;
 
-  const { error } = await supabase.from("llm_providers").insert({ name });
+  const { error } = await supabase.from("llm_providers").insert({
+    name,
+
+    // --- NEW REQUIRED FIELDS ---
+    created_by_user_id: user?.id,
+    modified_by_user_id: user?.id
+    // ---------------------------
+  });
 
   if (error) console.error("Error creating provider:", error.message);
 
@@ -20,12 +31,22 @@ export async function createLlmProvider(formData: FormData) {
 // --- UPDATE ---
 export async function updateLlmProvider(formData: FormData) {
   const supabase = await createClient();
+
+  // --- NEW: Fetch the user so we know who is modifying the row! ---
+  const { data: { user } } = await supabase.auth.getUser();
+
   const id = formData.get("id") as string;
   const name = formData.get("name") as string;
 
   const { error } = await supabase
     .from("llm_providers")
-    .update({ name })
+    .update({
+      name,
+
+      // --- NEW REQUIRED FIELD ---
+      modified_by_user_id: user?.id
+      // --------------------------
+    })
     .eq("id", id);
 
   if (error) console.error("Error updating provider:", error.message);

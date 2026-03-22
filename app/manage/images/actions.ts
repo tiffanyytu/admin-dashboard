@@ -44,6 +44,11 @@ export async function uploadImage(formData: FormData) {
     url: url,
     is_public: is_public,
     profile_id: user?.id || null,
+
+    // --- NEW REQUIRED FIELDS ---
+    created_by_user_id: user?.id,
+    modified_by_user_id: user?.id
+    // ---------------------------
   });
 
   if (dbError) console.error("Error saving to database:", dbError.message);
@@ -58,10 +63,19 @@ export async function updateImage(formData: FormData) {
   const id = formData.get("id") as string;
   const is_public = formData.get("is_public") === "on";
 
+  // --- NEW: Fetch the user so we know who is modifying the row! ---
+  const { data: { user } } = await supabase.auth.getUser();
+
   // Usually, you don't "update" a physical image file. You just change its settings!
   const { error } = await supabase
     .from("images")
-    .update({ is_public })
+    .update({
+        is_public,
+
+        // --- NEW REQUIRED FIELD ---
+        modified_by_user_id: user?.id
+        // --------------------------
+    })
     .eq("id", id);
 
   if (error) console.error("Error updating image visibility:", error.message);

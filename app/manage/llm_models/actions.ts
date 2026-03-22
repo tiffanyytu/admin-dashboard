@@ -8,6 +8,9 @@ import { redirect } from "next/navigation";
 export async function createLlmModel(formData: FormData) {
   const supabase = await createClient();
 
+  // --- NEW: Fetch the user so we know who is creating the row! ---
+  const { data: { user } } = await supabase.auth.getUser();
+
   const name = formData.get("name") as string;
   const llm_provider_id = formData.get("llm_provider_id") ? parseInt(formData.get("llm_provider_id") as string) : null;
   const provider_model_id = formData.get("provider_model_id") as string;
@@ -18,7 +21,12 @@ export async function createLlmModel(formData: FormData) {
     name,
     llm_provider_id,
     provider_model_id,
-    is_temperature_supported
+    is_temperature_supported,
+
+    // --- NEW REQUIRED FIELDS ---
+    created_by_user_id: user?.id,
+    modified_by_user_id: user?.id
+    // ---------------------------
   });
 
   if (error) console.error("Error creating model:", error.message);
@@ -30,6 +38,9 @@ export async function createLlmModel(formData: FormData) {
 // --- UPDATE ---
 export async function updateLlmModel(formData: FormData) {
   const supabase = await createClient();
+
+  // --- NEW: Fetch the user so we know who is modifying the row! ---
+  const { data: { user } } = await supabase.auth.getUser();
 
   const id = formData.get("id") as string;
   const name = formData.get("name") as string;
@@ -43,7 +54,11 @@ export async function updateLlmModel(formData: FormData) {
       name,
       llm_provider_id,
       provider_model_id,
-      is_temperature_supported
+      is_temperature_supported,
+
+      // --- NEW REQUIRED FIELD ---
+      modified_by_user_id: user?.id
+      // --------------------------
     })
     .eq("id", id);
 

@@ -8,6 +8,9 @@ import { redirect } from "next/navigation";
 export async function createTerm(formData: FormData) {
   const supabase = await createClient();
 
+  // --- NEW: Fetch the user so we know who is creating the row! ---
+  const { data: { user } } = await supabase.auth.getUser();
+
   // Extract data from the form
   const term = formData.get("term") as string;
   const definition = formData.get("definition") as string;
@@ -21,6 +24,11 @@ export async function createTerm(formData: FormData) {
     example,
     priority,
     term_type_id,
+
+    // --- NEW REQUIRED FIELDS ---
+    created_by_user_id: user?.id,
+    modified_by_user_id: user?.id
+    // ---------------------------
   });
 
   if (error) console.error("Error creating term:", error.message);
@@ -47,6 +55,9 @@ export async function deleteTerm(formData: FormData) {
 export async function updateTerm(formData: FormData) {
   const supabase = await createClient();
 
+  // --- NEW: Fetch the user so we know who is modifying the row! ---
+  const { data: { user } } = await supabase.auth.getUser();
+
   // Extract data from the form
   const id = formData.get("id") as string;
   const term = formData.get("term") as string;
@@ -63,6 +74,10 @@ export async function updateTerm(formData: FormData) {
       example,
       priority,
       term_type_id,
+
+      // --- NEW REQUIRED FIELD ---
+      modified_by_user_id: user?.id
+      // --------------------------
     })
     .eq("id", id);
 
