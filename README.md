@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Humor Project: Admin & Analytics Dashboard
+![Next.js](https://img.shields.io/badge/Next.js-black?style=flat&logo=next.js) ![TypeScript](https://img.shields.io/badge/TypeScript-blue?style=flat&logo=typescript) ![Supabase](https://img.shields.io/badge/Supabase-green?style=flat&logo=supabase)
 
-## Getting Started
+**🚀 Live Demo:** [https://admin-dashboard-amber-kappa.vercel.app/](https://admin-dashboard-amber-kappa.vercel.app/)
 
-First, run the development server:
+**GitHub Repository Topics:** `nextjs`, `typescript`, `supabase`, `full-stack`, `admin-panel`, `crud`, `analytics`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### What This Project Does
+This is the internal command center for the Humor Project ecosystem. It allows administrators to securely manage system configurations (like LLM Providers, Terms, and Allowed Domains) and provides data-driven insights into how the AI's jokes are performing with the community.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### My Contribution
+As the developer, I architected the administrative workflows, implementing Role-Based Access Control (RBAC), and building dynamic data visualization tables that calculate relational data in real-time.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Tech Stack
+* **Frontend:** Next.js (App Router), React, Tailwind CSS
+* **Backend:** Next.js Server Actions, Supabase (PostgreSQL)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Key Technical Decisions & Features
+* **Interactive Performance Analytics:** Built a custom `SortableTable` client component that calculates Net Score (Upvotes minus Downvotes) on the fly, allowing admins to instantly sort and identify the highest and lowest-performing AI jokes.
+* **Secure Database Management (CRUD):** Created forms and server actions to manage foundational database tables without requiring raw SQL access.
+* **Automated Data Auditing:** Implemented security measures on all update/create server actions to automatically fetch the session state and attach `created_by_user_id` and `modified_by_user_id` to maintain a strict audit trail.
+* **Access Control:** Protected routes to ensure only whitelisted administrator accounts can view or alter system configurations.
 
-## Learn More
+### How to Run It Locally
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Clone the repository.
+2. Install dependencies:
+   `npm install`
+3. Add your environment variables to `.env.local`:
+   `NEXT_PUBLIC_SUPABASE_URL=your_supabase_url`
+   `NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key`
+4. Run the development server:
+   `npm run dev`
+5. Open http://localhost:3000 in your browser.
